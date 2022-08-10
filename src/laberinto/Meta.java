@@ -4,18 +4,18 @@
  */
 package laberinto;
 
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-
 /**
  *
- * @author César
+ * @author Nicolás B, Jhon M, César T
  */
 public class Meta extends Elemento {
+    
+    // Constante para cambiar el color de fondo de impresión por concola
     private final String ANSI_FONDO_VERDE = "\u001B[42m";
 
+    /**
+     * Constructor del elemento Meta
+     */
     public Meta(int posicionI, int posicionJ) {
         super(posicionI, posicionJ);
     }

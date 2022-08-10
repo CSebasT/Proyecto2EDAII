@@ -8,11 +8,6 @@ import java.awt.GridLayout;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Queue;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -21,7 +16,7 @@ import laberinto.*;
 
 /**
  *
- * @author César
+ * @author Nicolás B, Jhon M, César T
  */
 public class VentanaNivel extends javax.swing.JFrame {
 
@@ -107,6 +102,9 @@ public class VentanaNivel extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Ejecuta acciones de movimiento.
+     */
     private void pnlPantallaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pnlPantallaKeyPressed
         switch (evt.getKeyCode()) {
             case KeyEvent.VK_W:
@@ -125,12 +123,19 @@ public class VentanaNivel extends javax.swing.JFrame {
         actualizarPantalla(laberinto.getLaberintoCaracteres());
         laberinto.imprimirLaberinto();
     }//GEN-LAST:event_pnlPantallaKeyPressed
-
+    
+    /**
+     * Crea y asigna las componentes al iniciar un nivel.
+     */
     private void cargarPantallaDeNuevoNivel() throws IOException {
         iniciarPantalla();
         actualizarPantalla(laberinto.getLaberintoCaracteres());
     }
 
+
+    /**
+     * Crear un Laberinto y los elementos de la pantalla.
+     */
     private void iniciarPantalla() {
         int dimensionCeldas = 5;
         laberinto = new Laberinto(dimensionCeldas);
@@ -147,7 +152,9 @@ public class VentanaNivel extends javax.swing.JFrame {
         laberinto.crearNuevoLaberinto();
     }
 
-    //
+    /**
+     * Ajusta el tamaño de la ventana.
+     */
     private void ajustarTamañoDeVentana() {
         int tamañoHorizontalParaLaVentana = lbElementos[0].length * 50 + 80;
         int tamañoVerticalParaLaVentana = lbElementos.length * 50 + 110;
@@ -155,6 +162,9 @@ public class VentanaNivel extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }
 
+    /**
+     * Quita los elementos de la pantalla.
+     */
     private void borrarPantalla() {
         for (JLabel[] lbElemento : lbElementos) {
             for (int j = 0; j < lbElementos[0].length; j++) {
@@ -163,6 +173,9 @@ public class VentanaNivel extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Quita las imágenes de los elementos.
+     */
     private void reiniciarPantalla() {
         for (JLabel[] lbElemento : lbElementos) {
             for (int j = 0; j < lbElementos[0].length; j++) {
@@ -171,6 +184,9 @@ public class VentanaNivel extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Asigna las imágenes a los elementos.
+     */
     private void actualizarPantalla(char[][] laberintoCaracteres) {
         reiniciarPantalla();
         ImageIcon imagen;

@@ -12,35 +12,46 @@ import java.util.Stack;
 
 /**
  *
- * @author César
+ * @author Nicolás B, Jhon M, César T
  */
 public class Laberinto {
 
-    private boolean[][] celdasVisitadas;
-    private int dimensionCeldas;
+    private boolean[][] celdasVisitadas; //  Matriz de celdas intermedias visitas
+    private int dimensionCeldas; // Dimensión de la matriz de celdas
     private int numeroCeldas;
-    private Random rnd;
-    private String[][] laberintoDibujado;
-    private char[][] laberintoCaracteres;
-    private int dimensionLaberinto;
-    private boolean[][] espaciosVisitados;
-    private ArrayList<Pared> paredes;
+    private Random rnd; // Objeto para número randomicos
+    private String[][] laberintoDibujado; // Matriz de elementos del laberinto en String
+    private char[][] laberintoCaracteres; // Matriz de elementos del laberinto en caracteres 
+    private int dimensionLaberinto; // Dimensión de la matriz del laberinto
+    private boolean[][] espaciosVisitados; // Matriz de espacios del laberinto visitados
+    private ArrayList<Pared> paredes; // Conjunto de paredes
     private Jugador jugador;
     private Meta meta;
     private Creador creador;
     private Stack<Integer> recurI; // Auxiliar para backtracking
     private Stack<Integer> recurJ; // Auxiliar para backtracking
 
+    // Constructor del Laberinto
     public Laberinto(int dimensionCeldas) {
         rnd = new Random();
         inicializar(dimensionCeldas);
     }
 
+    /**
+     * Inicializa todos los atributos del Laberinto con una nueva dimensión.
+     * 
+     * @param dimensionCeldas la dimensión de la matriz de celdas intermedias.
+     */
     public void setDimension(int dimensionCeldas) {
         inicializar(dimensionCeldas);
     }
 
-    void inicializar(int dimensionCeldas) {
+    /**
+     * Inicializa todos los atributos del Laberinto.
+     * 
+     * @param dimensionCeldas la dimensión de la matriz de celdas intermedias.
+     */
+    public void inicializar(int dimensionCeldas) {
         creador = new Creador(rnd.nextInt(dimensionCeldas), rnd.nextInt(dimensionCeldas));
         recurI = new Stack<>();
         recurJ = new Stack<>();
@@ -60,6 +71,9 @@ public class Laberinto {
         dibujarLaberinto();
     }
 
+    /**
+     * Crea el conjunto de paredes iniciales.
+     */
     private void crearParedesIniciales() {
         paredes.add(new Pared(0, 0));
         paredes.add(new Pared(dimensionLaberinto - 1, 0));
@@ -74,13 +88,16 @@ public class Laberinto {
         }
     }
 
+    /**
+     * Crea un nuevo laberinto.
+     */
     public void crearNuevoLaberinto() {
         int contador = 1;
         celdasVisitadas[creador.getPosicionI()][creador.getPosicionJ()] = true;
         imprimirLaberinto();
         dibujarLaberinto();
         while (contador < this.numeroCeldas) {
-            if (!vecinosVisitados(creador.getPosicionI(), creador.getPosicionJ(), dimensionCeldas, celdasVisitadas)) {
+            if (!vecinosVisitados(creador.getPosicionI(), creador.getPosicionJ(), celdasVisitadas)) {
                 moverAlAzarCreador(creador.getPosicionI(), creador.getPosicionJ());
                 contador++;
             } else {
@@ -96,15 +113,24 @@ public class Laberinto {
         dibujarLaberinto();
     }
 
-    public boolean vecinosVisitados(int i, int j, int dimension, boolean visitados[][]) {
+    /**
+     * Revisa se han visitado las posiciones en las direcciones: arriba, abajo, 
+     * izquierda y dereha respecto a la posición ingresada.
+     * 
+     * @param i indice de la fila en la matriz de la posición ingresada.
+     * @param j indice de la columna en la matriz de la posición ingresada.
+     * @param visitados matriz en la que se va a utilizar el método .
+     * @return false si almenos uno de los vecinos no esta visitado y true en el caso contrario.
+     */
+    public boolean vecinosVisitados(int i, int j, boolean visitados[][]) {
         int mov[] = {1, 1, 1, 1};
         if (i - 1 < 0) {
             mov[0] = 0;
         }
-        if (j + 1 == dimension) {
+        if (j + 1 == visitados[0].length) {
             mov[1] = 0;
         }
-        if (i + 1 == dimension) {
+        if (i + 1 == visitados.length) {
             mov[2] = 0;
         }
         if (j - 1 < 0) {
@@ -117,6 +143,13 @@ public class Laberinto {
         // arriba derecha abajo izquierda
     }
 
+    /**
+     * Mueve al azar al Creador a otra posición en la matriz de celdas.
+     * 
+     * @param i indice de la fila de la posición ingresada.
+     * @param j indice de la columna de la posición ingresada.
+     * @return la dirección en la que se movio al Creador de laberintos.
+     */
     public Direccion moverAlAzarCreador(int i, int j) {
         boolean cambioCelda = false;
         Direccion paso = null;
@@ -151,6 +184,11 @@ public class Laberinto {
         return paso;
     }
 
+    /**
+     * Genera una dirección al azar
+     * 
+     * @return dirección al azar.
+     */
     public Direccion obtenerDireccionAlAzar() {
         Direccion paso = null;
         int mov = rnd.nextInt(4);
@@ -171,6 +209,14 @@ public class Laberinto {
         return paso;
     }
 
+    /**
+     * Verifica que la posición ingresada no se encuentre fuera de la matriz de
+     * celdas intermedias.
+     * 
+     * @param i indice de la fila de la posición ingresada.
+     * @param j indice de la columna de la posición ingresada.
+     * @return true si la posición se encuentra dentro de la matriz de celdas, false en el caso contrario.
+     */
     private boolean puedeMoverCreador(int i, int j) {
         if (j < 0 || j == dimensionCeldas) {
             return false;
@@ -181,13 +227,21 @@ public class Laberinto {
         return true;
     }
 
+    /**
+     * Cambia la posición del Creador.
+     * 
+     * @param i indice de la fila de la posición ingresada.
+     * @param j indice de la columna de la posición ingresada.
+     */
     private void cambiarPosicionCreador(int nuevaPosicionI, int nuevaPosicionJ) {
         celdasVisitadas[nuevaPosicionI][nuevaPosicionJ] = true;
         creador.setPosicionI(nuevaPosicionI);
         creador.setPosicionJ(nuevaPosicionJ);
     }
-
-    // Dibuja el laberinto en forma de matriz
+    
+    /**
+     * Dibuja el laberinto en forma de matriz de Strings y caracteres.
+     */
     public void dibujarLaberinto() {
         for (int i = 0; i < dimensionLaberinto; i++) {
             for (int j = 0; j < dimensionLaberinto; j++) {
@@ -212,7 +266,9 @@ public class Laberinto {
         }
     }
 
-    // Imprime el dibujo de laberinto con la posición actual del Creador de Laberintos
+    /**
+     * Imprime el dibujo de laberinto en Strings.
+     */
     public void imprimirLaberinto() {
         dibujarLaberinto();
         System.out.println("\n----------------------\n");
@@ -225,9 +281,13 @@ public class Laberinto {
 
     }
 
-    // resolver
-    public Stack<Direccion> imprimirSolucion() {
-        // Marcar nodos como no visitados
+    /**
+     * Resuelve el laberinto
+     * 
+     * @return cola con las direcciones usadas por el algoritmo.
+     */
+    public Queue<Direccion> imprimirSolucion() {
+        // Marcar las posiciones con paredes como visitados
         for (Pared pared : paredes) {
             espaciosVisitados[pared.getPosicionI()][pared.getPosicionJ()] = true;
         }
@@ -235,7 +295,7 @@ public class Laberinto {
         recurI = new Stack<>();
         recurJ = new Stack<>();
 
-        Stack<Direccion> rutaAlgoritmo = new Stack<>();
+        Queue<Direccion> rutaAlgoritmo = new LinkedList<>();
         Direccion direccion = null;
 
         imprimirLaberinto();
@@ -244,7 +304,7 @@ public class Laberinto {
         espaciosVisitados[jugador.getPosicionI()][jugador.getPosicionJ()] = true;
 
         while (!(jugador.getPosicionI() == meta.getPosicionI() && jugador.getPosicionJ() == meta.getPosicionJ())) {
-            if (!vecinosVisitados(jugador.getPosicionI(), jugador.getPosicionJ(), dimensionLaberinto, espaciosVisitados)) {
+            if (!vecinosVisitados(jugador.getPosicionI(), jugador.getPosicionJ(), espaciosVisitados)) {
                 direccion = moverAlAzarJugador(jugador.getPosicionI(), jugador.getPosicionJ());
                 rutaAlgoritmo.add(direccion);
             } else {
@@ -253,19 +313,25 @@ public class Laberinto {
                 jugador.setPosicionJ(recurJ.pop());
             }
             //try {
-            //Thread.sleep(1000);
-            //TimeUnit.SECONDS.sleep(2);
+            //TimeUnit.MILLISECONDS.sleep(100);
             imprimirLaberinto();
             dibujarLaberinto();
-            System.out.println(rutaAlgoritmo.lastElement());
-            //rutaAlgoritmo.stream().forEach(S->System.out.print(S+" "));
             //} catch (InterruptedException e) {
             //    e.printStackTrace();
             //}
         }
+        //rutaAlgoritmo.stream().forEach(S->System.out.print(S+" "));
         return rutaAlgoritmo;
     }
 
+    /**
+     * Mueve al azar al Jugador a otra posición en la matriz de espacios del 
+     * laberinto.
+     * 
+     * @param i indice de la fila de la posición ingresada.
+     * @param j indice de la columna de la posición ingresada.
+     * @return la dirección en la que se movio al Jugador.
+     */
     private Direccion moverAlAzarJugador(int i, int j) {
         boolean cambioUbicacion = false;
         Direccion paso = null;
@@ -286,12 +352,26 @@ public class Laberinto {
         return paso;
     }
 
+    /**
+     * Cambia la posición del Jugador.
+     * 
+     * @param i indice de la fila de la posición ingresada.
+     * @param j indice de la columna de la posición ingresada.
+     */
     private void cambiarPosicionJugador(int nuevaPosicionI, int nuevaPosicionJ) {
         espaciosVisitados[nuevaPosicionI][nuevaPosicionJ] = true;
         jugador.setPosicionI(nuevaPosicionI);
         jugador.setPosicionJ(nuevaPosicionJ);
     }
 
+    /**
+     * Convierte los enteros de los cambios en las filas y las columnas en una 
+     * dirección.
+     * 
+     * @param i cambio en el indice de las filas.
+     * @param j cambio en el indice de las columnas.
+     * @return la dirección que indican los parametros.
+     */
     private Direccion obtenerDireccion(int i, int j) {
         Direccion direccionContraria = null;
         if (i == -1 && j == 0) {
@@ -309,6 +389,11 @@ public class Laberinto {
         return direccionContraria;
     }
 
+    /**
+     * Mueve al jugador en la dirección indicada.
+     * 
+     * @param direccion movimiento del jugador.
+     */
     public void moverJugador(Direccion direccion) {
         int i = jugador.getPosicionI();
         int j = jugador.getPosicionJ();
@@ -322,6 +407,13 @@ public class Laberinto {
         dibujarLaberinto();
     }
 
+    /**
+     * Verifica que no existan paredes en la posición ingresada
+     * 
+     * @param i indice de la fila de la posición ingresada.
+     * @param j indice de la columna de la posición ingresada.
+     * @return true si no hay paredes en la posición indicada, false en el caso contrario.
+     */
     private boolean esPosibleMoverse(int nuevaPosicionI, int nuevaPosicionJ) {
         for (Pared pared : paredes) {
             if (pared.getPosicionI() == nuevaPosicionI
@@ -332,10 +424,12 @@ public class Laberinto {
         return true;
     }
 
+    // Retorna la dimensión de la matriz del laberinto
     public int getDimensionLaberinto() {
         return dimensionLaberinto;
     }
 
+    // Retorna la matriz del laberinto en caracteres
     public char[][] getLaberintoCaracteres() {
         return laberintoCaracteres;
     }
@@ -345,6 +439,8 @@ public class Laberinto {
         laberinto.crearNuevoLaberinto();
         laberinto.imprimirLaberinto();
         laberinto.imprimirSolucion();
+        /*
+        System.out.println("");
         char[][] mapa = laberinto.getLaberintoCaracteres();
         for (int i = 0; i<mapa.length; i++){
             for (int j = 0; j<mapa[0].length; j++){
@@ -352,6 +448,7 @@ public class Laberinto {
             }
             System.out.println("");
         }
+        */  
     }
 
 }
