@@ -302,6 +302,9 @@ public class Laberinto {
         dibujarLaberinto();
 
         espaciosVisitados[jugador.getPosicionI()][jugador.getPosicionJ()] = true;
+        
+        int poicionAuxiliarI =jugador.getPosicionI();
+        int poicionAuxiliarJ =jugador.getPosicionJ();
 
         while (!(jugador.getPosicionI() == meta.getPosicionI() && jugador.getPosicionJ() == meta.getPosicionJ())) {
             if (!vecinosVisitados(jugador.getPosicionI(), jugador.getPosicionJ(), espaciosVisitados)) {
@@ -321,6 +324,7 @@ public class Laberinto {
             //}
         }
         //rutaAlgoritmo.stream().forEach(S->System.out.print(S+" "));
+        cambiarPosicionJugador(poicionAuxiliarI, poicionAuxiliarJ);
         return rutaAlgoritmo;
     }
 
@@ -346,6 +350,7 @@ public class Laberinto {
             if (espaciosVisitados[nuevaPosicionI][nuevaPosicionJ]) {
                 continue;
             }
+            espaciosVisitados[nuevaPosicionI][nuevaPosicionJ] = true;
             cambiarPosicionJugador(nuevaPosicionI, nuevaPosicionJ);
             cambioUbicacion = true;
         }
@@ -359,7 +364,6 @@ public class Laberinto {
      * @param j indice de la columna de la posición ingresada.
      */
     private void cambiarPosicionJugador(int nuevaPosicionI, int nuevaPosicionJ) {
-        espaciosVisitados[nuevaPosicionI][nuevaPosicionJ] = true;
         jugador.setPosicionI(nuevaPosicionI);
         jugador.setPosicionJ(nuevaPosicionJ);
     }
@@ -432,6 +436,26 @@ public class Laberinto {
     // Retorna la matriz del laberinto en caracteres
     public char[][] getLaberintoCaracteres() {
         return laberintoCaracteres;
+    }
+    
+    //Retorna la posicion en I del Jugador
+    public int getPosicionJugadorI(){
+        return jugador.getPosicionI();
+    }
+    
+    //Retorna la posicion en J del Jugador
+    public int getPosicionJugadorJ(){
+        return jugador.getPosicionJ();
+    }
+    
+    //Retorna la posicion en I de la Meta
+    public int getPosicionMetaI(){
+        return meta.getPosicionI();
+    }
+    
+    //Retorna la posicion en J de la Meta
+    public int getPosicionMetaJ(){
+        return meta.getPosicionJ();
     }
 
     public static void main(String[] args) {

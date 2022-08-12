@@ -6,11 +6,10 @@ package gui;
 
 import java.awt.GridLayout;
 import java.awt.event.KeyEvent;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
+import java.util.Queue;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 import laberinto.*;
 
@@ -27,27 +26,29 @@ public class VentanaNivel extends javax.swing.JFrame {
     private ImageIcon imagenPared = null;
     private ImageIcon imagenMeta = null;
     private ImageIcon imagenJugador = null;
+    private int nivel = 1;
+    private int puntaje = 20;
+    private Queue<Direccion> rutaAlgoritmo;
 
     /**
      * Creates new form VentanaNivel
      */
     public VentanaNivel() {
         initComponents();
-        setTitle("Laberinto");
+        setTitle("Sonic Laberinto");
         setLocationRelativeTo(null);
         setResizable(false);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
-        try {
-            imagenSuelo = new ImageIcon(ImageIO.read(new File("recursos/suelo.png")));
-            imagenCreador = new ImageIcon(ImageIO.read(new File("recursos/creador.png")));
-            imagenPared = new ImageIcon(ImageIO.read(new File("recursos/pared.png")));
-            imagenMeta = new ImageIcon(ImageIO.read(new File("recursos/meta.png")));
-            imagenJugador = new ImageIcon(ImageIO.read(new File("recursos/jugador.png")));
-            cargarPantallaDeNuevoNivel();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+        setIconImage(new ImageIcon("recursos/logo.png").getImage());
+        
+        imagenSuelo = new ImageIcon("recursos/suelo.png");
+        imagenCreador = new ImageIcon("recursos/creador.png");
+        imagenPared = new ImageIcon("recursos/pared.png");
+        imagenMeta = new ImageIcon("recursos/meta.png");
+        imagenJugador = new ImageIcon("recursos/jugador.png");
+        btnAvanzar.setVisible(false);
+        cargarPantallaDeNuevoNivel();
+            
         pnlPantalla.setFocusable(true);
     }
 
@@ -60,9 +61,18 @@ public class VentanaNivel extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         pnlPantalla = new javax.swing.JPanel();
+        lblPuntajeConteo = new javax.swing.JLabel();
+        lblNivelConteo = new javax.swing.JLabel();
+        lblPuntaje = new javax.swing.JLabel();
+        lblNIvel = new javax.swing.JLabel();
+        btnSolucionar = new javax.swing.JButton();
+        btnAvanzar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setBackground(new java.awt.Color(59, 104, 204));
 
         pnlPantalla.setBackground(new java.awt.Color(59, 137, 56));
         pnlPantalla.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -75,28 +85,100 @@ public class VentanaNivel extends javax.swing.JFrame {
         pnlPantalla.setLayout(pnlPantallaLayout);
         pnlPantallaLayout.setHorizontalGroup(
             pnlPantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 340, Short.MAX_VALUE)
+            .addGap(0, 502, Short.MAX_VALUE)
         );
         pnlPantallaLayout.setVerticalGroup(
             pnlPantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 220, Short.MAX_VALUE)
         );
 
+        lblPuntajeConteo.setFont(new java.awt.Font("Rockwell Extra Bold", 0, 18)); // NOI18N
+        lblPuntajeConteo.setForeground(new java.awt.Color(255, 255, 255));
+        lblPuntajeConteo.setText("4000");
+
+        lblNivelConteo.setFont(new java.awt.Font("Rockwell Extra Bold", 0, 18)); // NOI18N
+        lblNivelConteo.setForeground(new java.awt.Color(255, 255, 255));
+        lblNivelConteo.setText("1");
+
+        lblPuntaje.setBackground(new java.awt.Color(204, 204, 255));
+        lblPuntaje.setFont(new java.awt.Font("Rockwell Extra Bold", 0, 18)); // NOI18N
+        lblPuntaje.setForeground(new java.awt.Color(255, 255, 0));
+        lblPuntaje.setText("Puntaje");
+
+        lblNIvel.setBackground(new java.awt.Color(204, 204, 255));
+        lblNIvel.setFont(new java.awt.Font("Rockwell Extra Bold", 0, 18)); // NOI18N
+        lblNIvel.setForeground(new java.awt.Color(255, 255, 0));
+        lblNIvel.setText("Nivel");
+
+        btnSolucionar.setFont(new java.awt.Font("Rockwell Extra Bold", 0, 12)); // NOI18N
+        btnSolucionar.setText("Solucionar");
+        btnSolucionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSolucionarActionPerformed(evt);
+            }
+        });
+
+        btnAvanzar.setBackground(new java.awt.Color(255, 255, 0));
+        btnAvanzar.setFont(new java.awt.Font("Rockwell Extra Bold", 0, 12)); // NOI18N
+        btnAvanzar.setText("Avanzar");
+        btnAvanzar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAvanzarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(207, 207, 207)
+                        .addComponent(btnSolucionar)
+                        .addGap(46, 46, 46)
+                        .addComponent(btnAvanzar))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(101, 101, 101)
+                        .addComponent(lblNIvel, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblNivelConteo)
+                        .addGap(145, 145, 145)
+                        .addComponent(lblPuntaje)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblPuntajeConteo))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addComponent(pnlPantalla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(32, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNIvel, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblNivelConteo)
+                    .addComponent(lblPuntaje)
+                    .addComponent(lblPuntajeConteo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnlPantalla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAvanzar)
+                    .addComponent(btnSolucionar))
+                .addContainerGap(35, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(pnlPantalla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addComponent(pnlPantalla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(40, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -122,12 +204,31 @@ public class VentanaNivel extends javax.swing.JFrame {
         }
         actualizarPantalla(laberinto.getLaberintoCaracteres());
         laberinto.imprimirLaberinto();
+        actualizarPuntaje();
+        cambiarNivel();
     }//GEN-LAST:event_pnlPantallaKeyPressed
+
+    private void btnSolucionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolucionarActionPerformed
+        // TODO add your handling code here:
+        //btnSolucionar.transferFocus();
+        btnAvanzar.setVisible(true);
+        solucionar();
+    }//GEN-LAST:event_btnSolucionarActionPerformed
+
+    private void btnAvanzarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAvanzarActionPerformed
+        // TODO add your handling code here:
+
+        Direccion direccion = rutaAlgoritmo.poll();
+        System.out.println(direccion);
+        laberinto.moverJugador(direccion);
+        actualizarPantalla(laberinto.getLaberintoCaracteres());
+        cambiarNivel();
+    }//GEN-LAST:event_btnAvanzarActionPerformed
     
     /**
      * Crea y asigna las componentes al iniciar un nivel.
      */
-    private void cargarPantallaDeNuevoNivel() throws IOException {
+    private void cargarPantallaDeNuevoNivel() {
         iniciarPantalla();
         actualizarPantalla(laberinto.getLaberintoCaracteres());
     }
@@ -211,7 +312,54 @@ public class VentanaNivel extends javax.swing.JFrame {
             }
         }
     }
+    
+    /**
+     * Verifica si el personaje llego a la meta y cambia de nivel
+     */
+     public void cambiarNivel() {
+        if (laberinto.getPosicionJugadorI() == laberinto.getPosicionMetaI() & laberinto.getPosicionJugadorJ() == laberinto.getPosicionMetaJ()) {
+            nivel++;
+            if (nivel < 3) {
+                int respuesta = JOptionPane.showConfirmDialog(this, "¿Deseas continuar con el siguiente nivel?", 
+                        "Fin del nivel", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if(respuesta == JOptionPane.NO_OPTION){
+                    VentanaMenu ventanaMenu = new VentanaMenu();
+                    ventanaMenu.setVisible(true);
+                    this.setVisible(false);
+                    
+                }
+                lblNivelConteo.setText(String.valueOf(nivel));
+                borrarPantalla();
+                iniciarPantalla();
+                actualizarPantalla(laberinto.getLaberintoCaracteres());
+                btnAvanzar.setVisible(false);
 
+            } else {
+                VentanaFinJuego ventanaFinJuego = new VentanaFinJuego();
+                ventanaFinJuego.setPuntaje(puntaje);
+                ventanaFinJuego.setVisible(true);
+                this.setVisible(false);
+            }
+        }
+
+    }
+    /**
+     * Actualiza el puntaje del jugador cuando hace un movimiento
+     */
+    public void actualizarPuntaje() {
+        if(puntaje > 10){
+            puntaje -= 10;
+            lblPuntajeConteo.setText(String.valueOf(puntaje));
+        }
+    }
+
+    /** 
+     * Invoca al metodo imprimirSolucion() para obtener los movimientos 
+     */
+    public void solucionar() {
+        rutaAlgoritmo = laberinto.imprimirSolucion();
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -246,8 +394,15 @@ public class VentanaNivel extends javax.swing.JFrame {
             }
         });
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAvanzar;
+    private javax.swing.JButton btnSolucionar;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblNIvel;
+    private javax.swing.JLabel lblNivelConteo;
+    private javax.swing.JLabel lblPuntaje;
+    private javax.swing.JLabel lblPuntajeConteo;
     private javax.swing.JPanel pnlPantalla;
     // End of variables declaration//GEN-END:variables
 }
