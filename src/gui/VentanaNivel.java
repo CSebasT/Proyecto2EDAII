@@ -6,7 +6,14 @@ package gui;
 
 import java.awt.GridLayout;
 import java.awt.event.KeyEvent;
+<<<<<<< HEAD
 import java.util.Queue;
+=======
+import java.io.File;
+import java.io.IOException;
+import java.util.Queue;
+import javax.imageio.ImageIO;
+>>>>>>> 20a25db114121affca57d19bf2ddcf6dc0e65715
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -39,6 +46,7 @@ public class VentanaNivel extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setResizable(false);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+<<<<<<< HEAD
         setIconImage(new ImageIcon("recursos/logo.png").getImage());
         
         imagenSuelo = new ImageIcon("recursos/suelo.png");
@@ -49,6 +57,20 @@ public class VentanaNivel extends javax.swing.JFrame {
         btnAvanzar.setVisible(false);
         cargarPantallaDeNuevoNivel();
             
+=======
+
+        try {
+            imagenSuelo = new ImageIcon(ImageIO.read(new File("recursos/suelo.png")));
+            imagenCreador = new ImageIcon(ImageIO.read(new File("recursos/creador.png")));
+            imagenPared = new ImageIcon(ImageIO.read(new File("recursos/pared.png")));
+            imagenMeta = new ImageIcon(ImageIO.read(new File("recursos/meta.png")));
+            imagenJugador = new ImageIcon(ImageIO.read(new File("recursos/jugador.png")));
+            btnAvanzar.setVisible(false);
+            cargarPantallaDeNuevoNivel();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+>>>>>>> 20a25db114121affca57d19bf2ddcf6dc0e65715
         pnlPantalla.setFocusable(true);
     }
 
@@ -395,6 +417,55 @@ public class VentanaNivel extends javax.swing.JFrame {
         });
     }
     
+<<<<<<< HEAD
+=======
+    /**
+     * Verifica si el personaje llego a la meta y cambia de nivel
+     */
+     public void cambiarNivel() {
+        if (laberinto.getPosicionJugadorI() == laberinto.getPosicionMetaI() & laberinto.getPosicionJugadorJ() == laberinto.getPosicionMetaJ()) {
+            nivel++;
+            if (nivel < 3) {
+                int respuesta = JOptionPane.showConfirmDialog(this, "¿Deseas continuar con el siguiente nivel?", 
+                        "Fin del nivel", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if(respuesta == JOptionPane.NO_OPTION){
+                    VentanaMenu ventanaMenu = new VentanaMenu();
+                    ventanaMenu.setVisible(true);
+                    this.setVisible(false);
+                    
+                }
+                lblNivelConteo.setText(String.valueOf(nivel));
+                borrarPantalla();
+                iniciarPantalla();
+                actualizarPantalla(laberinto.getLaberintoCaracteres());
+                btnAvanzar.setVisible(false);
+
+            } else {
+                VentanaFinJuego ventanaFinJuego = new VentanaFinJuego();
+                ventanaFinJuego.setPuntaje(puntaje);
+                ventanaFinJuego.setVisible(true);
+                this.setVisible(false);
+            }
+        }
+
+    }
+    /**
+     * Actualiza el puntaje del jugador cuadno hace un movimiento
+     */
+    public void actualizarPuntaje() {
+        if(puntaje > 10){
+            puntaje -= 10;
+            lblPuntajeConteo.setText(String.valueOf(puntaje));
+        }
+    }
+
+    /** 
+     * Invoca al metodo imprimirSolucion() para obtener los movimientos 
+     */
+    public void solucionar() {
+        rutaAlgoritmo = laberinto.imprimirSolucion();
+    }
+>>>>>>> 20a25db114121affca57d19bf2ddcf6dc0e65715
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAvanzar;
     private javax.swing.JButton btnSolucionar;

@@ -5,6 +5,12 @@
  */
 package gui;
 
+<<<<<<< HEAD
+=======
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+>>>>>>> 20a25db114121affca57d19bf2ddcf6dc0e65715
 import javax.swing.ImageIcon;
 import javax.swing.WindowConstants;
 
@@ -13,7 +19,11 @@ import javax.swing.WindowConstants;
  * @author Jhon
  */
 public class VentanaMenu extends javax.swing.JFrame {
+<<<<<<< HEAD
     
+=======
+    private ImageIcon imagenPortada = null;
+>>>>>>> 20a25db114121affca57d19bf2ddcf6dc0e65715
     /**
      * Creates new form VentanaMenu
      */
@@ -22,10 +32,20 @@ public class VentanaMenu extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         setResizable(false);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+<<<<<<< HEAD
         setIconImage(new ImageIcon("recursos/logo.png").getImage());
         
         lblPortada.setIcon(new ImageIcon("recursos/portada.jpg"));
         
+=======
+        
+        try {
+            imagenPortada = new ImageIcon(ImageIO.read(new File("recursos/portada.jpg")));
+            lblPortada.setIcon(imagenPortada);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+>>>>>>> 20a25db114121affca57d19bf2ddcf6dc0e65715
     }
 
     /**

@@ -12,10 +12,14 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/Users/USER/Documents/NetBeansProjects/PR01B02/src/gui/VentanaNivel.java</file>
             <file>file:/C:/Users/USER/Documents/NetBeansProjects/PR01B02/src/gui/VentanaFinJuego.java</file>
             <file>file:/C:/Users/USER/Documents/NetBeansProjects/PR01B02/src/gui/VentanaMenu.java</file>
             <file>file:/C:/Users/USER/Documents/NetBeansProjects/PR01B02/src/laberinto/Laberinto.java</file>
+=======
+            <file>file:/C:/Users/Jhon/Desktop/Cuarto/Algoritmos%20II/proyectoEDA/Proyecto2EDAII/src/gui/VentanaNivel.java</file>
+>>>>>>> 20a25db114121affca57d19bf2ddcf6dc0e65715
         </group>
     </open-files>
 </project-private>

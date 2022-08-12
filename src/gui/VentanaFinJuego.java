@@ -5,6 +5,13 @@
  */
 package gui;
 
+<<<<<<< HEAD
+=======
+import java.awt.Color;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+>>>>>>> 20a25db114121affca57d19bf2ddcf6dc0e65715
 import javax.swing.ImageIcon;
 import javax.swing.WindowConstants;
 
@@ -14,6 +21,10 @@ import javax.swing.WindowConstants;
  */
 public class VentanaFinJuego extends javax.swing.JFrame {
     private int puntaje;
+<<<<<<< HEAD
+=======
+    private ImageIcon imagenPortadaFin = null;
+>>>>>>> 20a25db114121affca57d19bf2ddcf6dc0e65715
 
     /**
      * Creates new form VentanaFinJuego
@@ -23,9 +34,19 @@ public class VentanaFinJuego extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         setResizable(false);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+<<<<<<< HEAD
         setIconImage(new ImageIcon("recursos/logo.png").getImage());
         
         lblPortadaFIn.setIcon(new ImageIcon("recursos/portadaFin.jpg"));
+=======
+        try {
+            imagenPortadaFin = new ImageIcon(ImageIO.read(new File("recursos/portadaFin.jpg")));
+            lblPortadaFIn.setIcon(imagenPortadaFin);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        
+>>>>>>> 20a25db114121affca57d19bf2ddcf6dc0e65715
     }
     
     /**
