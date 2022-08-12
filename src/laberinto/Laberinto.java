@@ -302,6 +302,9 @@ public class Laberinto {
         dibujarLaberinto();
 
         espaciosVisitados[jugador.getPosicionI()][jugador.getPosicionJ()] = true;
+        
+        int poicionAuxiliarI =jugador.getPosicionI();
+        int poicionAuxiliarJ =jugador.getPosicionJ();
 
         while (!(jugador.getPosicionI() == meta.getPosicionI() && jugador.getPosicionJ() == meta.getPosicionJ())) {
             if (!vecinosVisitados(jugador.getPosicionI(), jugador.getPosicionJ(), espaciosVisitados)) {
@@ -321,6 +324,7 @@ public class Laberinto {
             //}
         }
         //rutaAlgoritmo.stream().forEach(S->System.out.print(S+" "));
+        cambiarPosicionJugador(poicionAuxiliarI, poicionAuxiliarJ);
         return rutaAlgoritmo;
     }
 
@@ -432,6 +436,22 @@ public class Laberinto {
     // Retorna la matriz del laberinto en caracteres
     public char[][] getLaberintoCaracteres() {
         return laberintoCaracteres;
+    }
+    
+    public int getPosicionJugadorI(){
+        return jugador.getPosicionI();
+    }
+    
+    public int getPosicionJugadorJ(){
+        return jugador.getPosicionJ();
+    }
+    
+    public int getPosicionMetaI(){
+        return meta.getPosicionI();
+    }
+    
+    public int getPosicionMetaJ(){
+        return meta.getPosicionJ();
     }
 
     public static void main(String[] args) {
