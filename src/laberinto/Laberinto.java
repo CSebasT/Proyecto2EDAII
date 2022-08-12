@@ -438,18 +438,22 @@ public class Laberinto {
         return laberintoCaracteres;
     }
     
+    //Retorna la posicion en I del Jugador
     public int getPosicionJugadorI(){
         return jugador.getPosicionI();
     }
     
+    //Retorna la posicion en J del Jugador
     public int getPosicionJugadorJ(){
         return jugador.getPosicionJ();
     }
     
+    //Retorna la posicion en I de la Meta
     public int getPosicionMetaI(){
         return meta.getPosicionI();
     }
     
+    //Retorna la posicion en J de la Meta
     public int getPosicionMetaJ(){
         return meta.getPosicionJ();
     }

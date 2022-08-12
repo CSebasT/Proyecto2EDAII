@@ -30,7 +30,7 @@ public class VentanaNivel extends javax.swing.JFrame {
     private ImageIcon imagenMeta = null;
     private ImageIcon imagenJugador = null;
     private int nivel = 1;
-    private int puntaje = 4000;
+    private int puntaje = 20;
     private Queue<Direccion> rutaAlgoritmo;
 
     /**
@@ -353,6 +353,9 @@ public class VentanaNivel extends javax.swing.JFrame {
         });
     }
     
+    /**
+     * Verifica si el personaje llego a la meta y cambia de nivel
+     */
      public void cambiarNivel() {
         if (laberinto.getPosicionJugadorI() == laberinto.getPosicionMetaI() & laberinto.getPosicionJugadorJ() == laberinto.getPosicionMetaJ()) {
             nivel++;
@@ -380,16 +383,21 @@ public class VentanaNivel extends javax.swing.JFrame {
         }
 
     }
-
+    /**
+     * Actualiza el puntaje del jugador cuadno hace un movimiento
+     */
     public void actualizarPuntaje() {
-        puntaje -= 10;
-        lblPuntajeConteo.setText(String.valueOf(puntaje));
+        if(puntaje > 10){
+            puntaje -= 10;
+            lblPuntajeConteo.setText(String.valueOf(puntaje));
+        }
     }
-    
 
+    /** 
+     * Invoca al metodo imprimirSolucion() para obtener los movimientos 
+     */
     public void solucionar() {
         rutaAlgoritmo = laberinto.imprimirSolucion();
-        
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAvanzar;

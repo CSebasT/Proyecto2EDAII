@@ -31,15 +31,15 @@ public class VentanaFinJuego extends javax.swing.JFrame {
         try {
             imagenPortadaFin = new ImageIcon(ImageIO.read(new File("recursos/portadaFin.jpg")));
             lblPortadaFIn.setIcon(imagenPortadaFin);
-            //lblFinJuego.setOpaque(true);
-            //lblPuntaje.setOpaque(true);
-            //lblPuntajeNum.setOpaque(true);
         } catch (IOException ex) {
             ex.printStackTrace();
         }
         
     }
     
+    /**
+     * Modifica la etiqueta con el Puntaje
+     */
     public void setPuntaje(int puntaje){
         this.puntaje = puntaje;
         lblPuntajeNum.setText(String.valueOf(puntaje));
