@@ -5,13 +5,6 @@
  */
 package gui;
 
-<<<<<<< HEAD
-=======
-import java.awt.Color;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
->>>>>>> 20a25db114121affca57d19bf2ddcf6dc0e65715
 import javax.swing.ImageIcon;
 import javax.swing.WindowConstants;
 
@@ -21,10 +14,6 @@ import javax.swing.WindowConstants;
  */
 public class VentanaFinJuego extends javax.swing.JFrame {
     private int puntaje;
-<<<<<<< HEAD
-=======
-    private ImageIcon imagenPortadaFin = null;
->>>>>>> 20a25db114121affca57d19bf2ddcf6dc0e65715
 
     /**
      * Creates new form VentanaFinJuego
@@ -34,19 +23,9 @@ public class VentanaFinJuego extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         setResizable(false);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-<<<<<<< HEAD
         setIconImage(new ImageIcon("recursos/logo.png").getImage());
         
         lblPortadaFIn.setIcon(new ImageIcon("recursos/portadaFin.jpg"));
-=======
-        try {
-            imagenPortadaFin = new ImageIcon(ImageIO.read(new File("recursos/portadaFin.jpg")));
-            lblPortadaFIn.setIcon(imagenPortadaFin);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        
->>>>>>> 20a25db114121affca57d19bf2ddcf6dc0e65715
     }
     
     /**
@@ -122,29 +101,29 @@ public class VentanaFinJuego extends javax.swing.JFrame {
         pnlPuntajeLayout.setHorizontalGroup(
             pnlPuntajeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlPuntajeLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(22, 22, 22)
                 .addComponent(lblPuntaje)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(lblPuntajeNum)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPuntajeLayout.createSequentialGroup()
-                .addContainerGap(34, Short.MAX_VALUE)
+                .addContainerGap(53, Short.MAX_VALUE)
                 .addComponent(lblFinJuego, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18))
+                .addGap(39, 39, 39))
         );
         pnlPuntajeLayout.setVerticalGroup(
             pnlPuntajeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlPuntajeLayout.createSequentialGroup()
-                .addGap(0, 0, 0)
+                .addGap(16, 16, 16)
                 .addComponent(lblFinJuego)
-                .addGap(27, 27, 27)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlPuntajeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblPuntaje)
                     .addComponent(lblPuntajeNum))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
-        pnlFinJuego.add(pnlPuntaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 50, 250, 100));
+        pnlFinJuego.add(pnlPuntaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 40, 290, 110));
         pnlFinJuego.add(lblPortadaFIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 520, 380));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
