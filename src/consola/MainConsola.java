@@ -1,4 +1,4 @@
-package cli;
+package consola;
 
 import java.util.Scanner;
 import laberinto.Laberinto;
@@ -7,7 +7,7 @@ import laberinto.Laberinto;
  *
  * @author César
  */
-public class MainCLI {
+public class MainConsola {
 
     public static void main(String[] args) {
         Laberinto laberinto = new Laberinto(5);
