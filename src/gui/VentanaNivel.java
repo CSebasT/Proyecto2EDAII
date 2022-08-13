@@ -214,7 +214,8 @@ public class VentanaNivel extends javax.swing.JFrame {
         //btnSolucionar.transferFocus();
         btnAvanzar.setVisible(true);
         solucionar();
-        lblPuntajeConteo.setText(String.valueOf(0));
+        puntaje = 0;
+        lblPuntajeConteo.setText(String.valueOf(puntaje));
     }//GEN-LAST:event_btnSolucionarActionPerformed
 
     private void btnAvanzarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAvanzarActionPerformed

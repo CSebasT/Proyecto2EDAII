@@ -91,7 +91,6 @@ public class Laberinto {
         int contador = 1;
         celdasVisitadas[creador.getPosicionI()][creador.getPosicionJ()] = true;
         imprimirLaberinto();
-        dibujarLaberinto();
         while (contador < this.numeroCeldas) {
             if (!vecinosVisitados(creador.getPosicionI(), creador.getPosicionJ(), celdasVisitadas)) {
                 moverAlAzarCreador(creador.getPosicionI(), creador.getPosicionJ());
@@ -101,7 +100,6 @@ public class Laberinto {
                 creador.setPosicionJ(recurJ.pop());
             }
             imprimirLaberinto();
-            dibujarLaberinto();
         }
         jugador = new Jugador(1, 1);
         meta = new Meta(dimensionLaberinto - 2, dimensionLaberinto - 2);
@@ -295,7 +293,6 @@ public class Laberinto {
         Direccion direccion = null;
 
         imprimirLaberinto();
-        dibujarLaberinto();
 
         espaciosVisitados[jugador.getPosicionI()][jugador.getPosicionJ()] = true;
         
@@ -312,7 +309,6 @@ public class Laberinto {
                 jugador.setPosicionJ(recurJ.pop());
             }
             imprimirLaberinto();
-            dibujarLaberinto();
         }
         cambiarPosicionJugador(poicionAuxiliarI, poicionAuxiliarJ);
         return rutaAlgoritmo;

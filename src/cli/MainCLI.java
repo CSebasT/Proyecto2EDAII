@@ -17,6 +17,7 @@ public class MainCLI {
         boolean bandera = false;
 
         while (opcion.equals("Y")) {
+            bandera = false;
             while (!bandera) {
                 System.out.println("Ingrese un tamaño para el laberinto (Número)");
                 opcion = sc.nextLine();
@@ -40,5 +41,6 @@ public class MainCLI {
             System.out.println("Si desea crear otro laberinto ingrese \"Y\"");
             opcion = sc.nextLine().toUpperCase();
         }
+        System.out.println("Fin de la ejecución");
     }
 }
