@@ -311,15 +311,9 @@ public class Laberinto {
                 jugador.setPosicionI(recurI.pop());
                 jugador.setPosicionJ(recurJ.pop());
             }
-            //try {
-            //TimeUnit.MILLISECONDS.sleep(100);
             imprimirLaberinto();
             dibujarLaberinto();
-            //} catch (InterruptedException e) {
-            //    e.printStackTrace();
-            //}
         }
-        //rutaAlgoritmo.stream().forEach(S->System.out.print(S+" "));
         cambiarPosicionJugador(poicionAuxiliarI, poicionAuxiliarJ);
         return rutaAlgoritmo;
     }
@@ -453,22 +447,4 @@ public class Laberinto {
     public int getPosicionMetaJ(){
         return meta.getPosicionJ();
     }
-
-    public static void main(String[] args) {
-        Laberinto laberinto = new Laberinto(5);
-        laberinto.crearNuevoLaberinto();
-        laberinto.imprimirLaberinto();
-        laberinto.imprimirSolucion();
-        /*
-        System.out.println("");
-        char[][] mapa = laberinto.getLaberintoCaracteres();
-        for (int i = 0; i<mapa.length; i++){
-            for (int j = 0; j<mapa[0].length; j++){
-                System.out.print(mapa[i][j]);
-            }
-            System.out.println("");
-        }
-        */  
-    }
-
 }
