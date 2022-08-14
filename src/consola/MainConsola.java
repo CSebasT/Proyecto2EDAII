@@ -20,10 +20,16 @@ public class MainConsola {
             bandera = false;
             while (!bandera) {
                 System.out.println("Ingrese un tamaño para el laberinto (Número)");
+                System.out.println("Evite usar un número mayor que diez");
                 opcion = sc.nextLine();
                 try {
                     dimensionCeldas = Integer.parseInt(opcion);
                 } catch (NumberFormatException ex) {
+                    System.out.println("Debe ingresar un número");
+                    continue;
+                }
+                if (dimensionCeldas<=0){
+                    System.out.println("El número debe ser mayor que cero");
                     continue;
                 }
                 bandera = true;
